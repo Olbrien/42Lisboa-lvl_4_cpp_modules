@@ -30,8 +30,7 @@ int main() {
         else if (command == "ADD")
             std::cout << "ADD\n";        
         else if (command == "SEARCH")
-            std::cout << "SEARCH\n";            
-
+            std::cout << "SEARCH\n";
     }
 }
 
