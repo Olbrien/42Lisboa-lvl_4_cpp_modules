@@ -13,7 +13,7 @@ int main(int argc, char **argv) {
 
             int x = 0;
             while (temp[x]) {
-                putchar (toupper(temp[x]));
+                putchar(toupper(temp[x]));
                 x++;
             }
             i++;
