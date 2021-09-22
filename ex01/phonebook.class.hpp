@@ -4,12 +4,6 @@
 # include <iostream>
 
 class phonebook {
-    private:
-        std::string first_name;
-        std::string last_name;
-        std::string nickname;
-        int phone_number;
-        std::string darkest_secret;
 
     public:
         void setFirstName(std::string str);
@@ -18,21 +12,35 @@ class phonebook {
         void setPhoneNumber(int phone);
         void setDarkestSecret(std::string str);
 
+        phonebook();
+        ~phonebook();
+
         std::string getFirstName() {
-            return(first_name);
+            return(_first_name);
         }
         std::string getLastName() {
-            return(last_name);
+            return(_last_name);
         }
         std::string getNickname() {
-            return(nickname);
+            return(_nickname);
         }
         int getPhoneNumber() {
-            return(phone_number);
+            return(_phone_number);
         }
         std::string getDarkestSecret() {
-            return(darkest_secret);
+            return(_darkest_secret);
         }
+
+    private:
+        std::string _first_name;
+        std::string _last_name;
+        std::string _nickname;
+        int _phone_number;
+        std::string _darkest_secret;
+        
+        static int _count;
 };
+
+int phonebook::_count = 0;
 
 #endif
