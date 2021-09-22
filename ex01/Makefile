@@ -1,20 +1,34 @@
+#### ######## #### #### ######## #### #### ######## #### #### ######## #### #### ######## ####
+
 NAME = phonebook
 
 CC = clang++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-MAIN = phonebook
+#### ######## #### #### ######## #### #### ######## #### #### ######## #### #### ######## ####
 
-SRC = $(addsuffix .cpp, $(addprefix , $(MAIN)))	 
+ROOT_SOURCES = phonebook
+
+SRC = $(addsuffix .cpp, $(addprefix , $(ROOT_SOURCES)))
+
+#### ######## #### #### ######## #### #### ######## #### #### ######## #### #### ######## ####
+
+ROOT_INCLUDES = phonebook.class
+
+INC = -I $(addsuffix .hpp, $(addprefix , $(ROOT_INCLUDES)))
+
+#### ######## #### #### ######## #### #### ######## #### #### ######## #### #### ######## ####
 
 OBJ = $(SRC:cpp=o)
+
+#### ######## #### #### ######## #### #### ######## #### #### ######## #### #### ######## ####
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	@echo "\n"
 	@echo "\033[0;32mCompiling ${NAME}..."
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
+	@$(CC) $(CFLAGS) $(INC) -o $(NAME) $(OBJ)
 	@echo "\n\033[0mDone !"
 
 %.o: %.cpp
@@ -36,3 +50,5 @@ fclean:
 re: fclean all
 
 cclean: all clean
+
+#### ######## #### #### ######## #### #### ######## #### #### ######## #### #### ######## ####

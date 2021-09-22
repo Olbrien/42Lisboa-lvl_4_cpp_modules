@@ -37,7 +37,7 @@ class phonebook {
         std::string _nickname;
         int _phone_number;
         std::string _darkest_secret;
-        
+
         static int _count;
 };
 

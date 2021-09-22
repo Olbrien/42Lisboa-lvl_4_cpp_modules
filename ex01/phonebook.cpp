@@ -2,7 +2,11 @@
 #include "phonebook.class.hpp"
 
 phonebook::phonebook() {
-    phonebook::_count;
+    phonebook::_count++;
+}
+
+phonebook::~phonebook() {
+    std::cout << this->_count;
 }
 
 void phonebook::setFirstName(std::string str) {
@@ -26,6 +30,9 @@ int main() {
 
     std::cout << "\nWelcome to the PhoneBook!\n" << std::endl;
 
+	phonebook obj;
+
+
     while(1) {
         std::cout << "Please insert a command:" << std::endl;
         std::cin >> command;
@@ -35,7 +42,7 @@ int main() {
             break ;
         }
         else if (command == "ADD")
-            std::cout << "ADD\n";        
+            std::cout << "ADD\n";
         else if (command == "SEARCH")
             std::cout << "SEARCH\n";
         else {
