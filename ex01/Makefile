@@ -7,15 +7,9 @@ CFLAGS = -Wall -Wextra -Werror -std=c++98
 
 #### ######## #### #### ######## #### #### ######## #### #### ######## #### #### ######## ####
 
-ROOT_SOURCES = phonebook
+ROOT_SOURCES = main phonebook contact
 
 SRC = $(addsuffix .cpp, $(addprefix , $(ROOT_SOURCES)))
-
-#### ######## #### #### ######## #### #### ######## #### #### ######## #### #### ######## ####
-
-ROOT_INCLUDES = phonebook.class
-
-INC = -I $(addsuffix .hpp, $(addprefix , $(ROOT_INCLUDES)))
 
 #### ######## #### #### ######## #### #### ######## #### #### ######## #### #### ######## ####
 
@@ -28,7 +22,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@echo "\n"
 	@echo "\033[0;32mCompiling ${NAME}..."
-	@$(CC) $(CFLAGS) $(INC) -o $(NAME) $(OBJ)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
 	@echo "\n\033[0mDone !"
 
 %.o: %.cpp
