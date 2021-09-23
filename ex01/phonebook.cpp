@@ -2,7 +2,7 @@
 
 int phonebook::_count = -1;
 
-phonebook::phonebook() {    
+phonebook::phonebook() {
 }
 
 phonebook::~phonebook() {
@@ -14,12 +14,12 @@ std::string returnUserInput() {
     std::string line;
 
     while (line.empty())
-        std::getline(std::cin, line);        
+        std::getline(std::cin, line);
 
-    return (line);    
+    return (line);
 }
 
-void phonebook::AddContact(contact *contacts) {
+void phonebook::AddContact() {
 
     phonebook::_count++;
 
@@ -28,7 +28,7 @@ void phonebook::AddContact(contact *contacts) {
     if (_count >= 7)
     {
         for (int i = 0; i < 7; i++)
-            contacts[i] = contacts[i + 1]; 
+            contacts[i] = contacts[i + 1];
 
         phonebook::_count = 7;
     }
@@ -42,18 +42,18 @@ void phonebook::AddContact(contact *contacts) {
     std::cout << "Please insert your Phone Number Name: ";
     contacts[this->_count].setPhoneNumber(returnUserInput());
     std::cout << "Please insert your Darkest Secret: ";
-    contacts[this->_count].setDarkestSecret(returnUserInput()); 
+    contacts[this->_count].setDarkestSecret(returnUserInput());
 }
 
-void phonebook::SearchContacts(contact *contacts) {
+void phonebook::SearchContacts() {
 
-    std::cout << "|     Index| FirstName|  LastName|  Nickname|" << std::endl; 
+    std::cout << "|     Index| FirstName|  LastName|  Nickname|" << std::endl;
 
     for (int x = 0; x < 8; x++) {
-        
+
         if (contacts[x].getFirstName().size() != 0) {
             std::cout << "|" << std::setw(10) << x;
-   
+
             contacts[x].getFirstName().size() > 10 ? std::cout << "|" << std::setw(9) << contacts[x].getFirstName().substr(0,9) << "." :
                                                      std::cout << "|" << std::setw(10) << contacts[x].getFirstName().substr(0,10);
 
@@ -65,9 +65,12 @@ void phonebook::SearchContacts(contact *contacts) {
         }
     }
 
-    int index;
-    std::cin >> index;
-    std::cin.ignore();
+	std::string line;
+	std::getline(std::cin, line);
+
+	while (line.begin)
+
+	std::cout << index << std::endl;
 
     if (index >= 0 && index <= 7)
     {

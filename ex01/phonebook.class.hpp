@@ -3,21 +3,24 @@
 
 # include <iostream>
 # include <iomanip>
+# include <sstream>
+# include <string>
 # include "contact.class.hpp"
 
 class phonebook {
-    
-    public:       
+
+    public:
 
         phonebook();
-        ~phonebook(); 
+        ~phonebook();
 
-        void AddContact(contact *contacts);
-        void SearchContacts(contact *contacts);
+        void AddContact();
+        void SearchContacts();
 
     private:
 
         static int _count;
+		contact contacts[8];
 
 };
 
