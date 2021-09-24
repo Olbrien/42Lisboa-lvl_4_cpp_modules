@@ -1,4 +1,4 @@
-#include "contact.class.hpp"
+#include "main.hpp"
 
 void contact::setFirstName(std::string str) {
     this->_first_name = str;

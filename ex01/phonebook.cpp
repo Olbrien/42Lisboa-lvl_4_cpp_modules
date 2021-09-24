@@ -1,31 +1,12 @@
-#include "phonebook.class.hpp"
+#include "main.hpp"
 
 int phonebook::_count = -1;
-
-phonebook::phonebook() {
-}
-
-phonebook::~phonebook() {
-    std::cout << this->_count;
-}
-
-std::string returnUserInput() {
-
-    std::string line;
-
-    while (line.empty())
-        std::getline(std::cin, line);
-
-    return (line);
-}
 
 void phonebook::AddContact() {
 
     phonebook::_count++;
 
-    std::cout << this->_count << std::endl;
-
-    if (_count >= 7)
+    if (_count > 7)
     {
         for (int i = 0; i < 7; i++)
             contacts[i] = contacts[i + 1];
@@ -47,11 +28,17 @@ void phonebook::AddContact() {
 
 void phonebook::SearchContacts() {
 
+    if (contacts[0].getFirstName().size() == 0) {
+        std::cout << "Please ADD contacts first before SEARCH" << std::endl;
+        return ;
+    }
+
     std::cout << "|     Index| FirstName|  LastName|  Nickname|" << std::endl;
 
     for (int x = 0; x < 8; x++) {
 
         if (contacts[x].getFirstName().size() != 0) {
+           
             std::cout << "|" << std::setw(10) << x;
 
             contacts[x].getFirstName().size() > 10 ? std::cout << "|" << std::setw(9) << contacts[x].getFirstName().substr(0,9) << "." :
@@ -65,15 +52,26 @@ void phonebook::SearchContacts() {
         }
     }
 
+    std::cout << "\nPlease insert the Index of a contact you want to see: ";
+
 	std::string line;
 	std::getline(std::cin, line);
+    int index = -1;
 
-	while (line.begin)
+    if (isStringDigit(line) == true) {
+        std::stringstream ss(line);
+        ss >> index;
+    }	
 
-	std::cout << index << std::endl;
-
-    if (index >= 0 && index <= 7)
-    {
-        std::cout << "WHERREr\n";
+    if (index >= 0 && index <= 7) {
+        if (contacts[index].getFirstName().size() != 0) {
+            std::cout << std::endl;
+            std::cout << "First Name: " << contacts[index].getFirstName() << std::endl;
+            std::cout << "Last Name: " << contacts[index].getLastName() << std::endl;
+            std::cout << "Nickname: " << contacts[index].getNickname() << std::endl;
+            std::cout << "Phone Number: " << contacts[index].getPhoneNumber() << std::endl;
+            std::cout << "Darkest Secret: " << contacts[index].getDarkestSecret() << std::endl;
+        }
     }
+    
 }

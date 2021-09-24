@@ -7,7 +7,7 @@ CFLAGS = -Wall -Wextra -Werror -std=c++98
 
 #### ######## #### #### ######## #### #### ######## #### #### ######## #### #### ######## ####
 
-ROOT_SOURCES = main phonebook contact
+ROOT_SOURCES = main phonebook contact utils
 
 SRC = $(addsuffix .cpp, $(addprefix , $(ROOT_SOURCES)))
 

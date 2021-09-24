@@ -5,10 +5,10 @@ int main() {
 
 	phonebook phonebooks;
 
-	std::cout << "\nWelcome to the PhoneBook!\n" << std::endl;
+	std::cout << "\nWelcome to the PhoneBook!" << std::endl;
 
 	while(1) {
-		std::cout << "Please insert a command:" << std::endl;
+		std::cout << "\nPlease insert a command:" << std::endl;
 		std::getline(std::cin, command);
 		if (command == "EXIT")
 			break ;
