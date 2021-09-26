@@ -1,6 +1,6 @@
 #### ######## #### #### ######## #### #### ######## #### #### ######## #### #### ######## ####
 
-NAME = zombie
+NAME = brain
 
 CC = clang++
 CFLAGS = -Wall -Wextra -Werror -std=c++98

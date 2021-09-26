@@ -1,13 +1,13 @@
 #### ######## #### #### ######## #### #### ######## #### #### ######## #### #### ######## ####
 
-NAME = zombie
+NAME = weapon
 
 CC = clang++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
 #### ######## #### #### ######## #### #### ######## #### #### ######## #### #### ######## ####
 
-ROOT_SOURCES = main Zombie ZombieHorde
+ROOT_SOURCES = main Weapon HumanA HumanB
 
 SRC = $(addsuffix .cpp, $(addprefix , $(ROOT_SOURCES)))
 
