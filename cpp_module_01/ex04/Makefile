@@ -7,7 +7,7 @@ CFLAGS = -Wall -Wextra -Werror -std=c++98
 
 #### ######## #### #### ######## #### #### ######## #### #### ######## #### #### ######## ####
 
-ROOT_SOURCES = main
+ROOT_SOURCES = main Replace
 
 SRC = $(addsuffix .cpp, $(addprefix , $(ROOT_SOURCES)))
 
