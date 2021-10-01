@@ -1,5 +1,3 @@
-![GitHub Logo](/extras/images/Success.png)
-
 ###### <i>Recent Update on 27/09/2021.</i>
 • Started the project.
 
