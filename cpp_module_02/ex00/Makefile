@@ -1,13 +1,13 @@
 #### ######## #### #### ######## #### #### ######## #### #### ######## #### #### ######## ####
 
-NAME = brain
+NAME = fixed
 
 CC = clang++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
 #### ######## #### #### ######## #### #### ######## #### #### ######## #### #### ######## ####
 
-ROOT_SOURCES = main.cpp Fixed.cpp
+ROOT_SOURCES = main Fixed
 
 SRC = $(addsuffix .cpp, $(addprefix , $(ROOT_SOURCES)))
 

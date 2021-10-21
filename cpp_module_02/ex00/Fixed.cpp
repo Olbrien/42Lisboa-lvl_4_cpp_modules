@@ -1,0 +1,34 @@
+#include "Fixed.hpp"
+
+Fixed::Fixed() {
+	// chamar o set setRawBits e pôr a 0
+	std::cout << "Default Constructor Called" << std::endl;
+	return ;
+}
+
+Fixed::Fixed(Fixed const & obj) {
+	std::cout << "Copy Constructor Called" << std::endl;
+	*this = obj;
+	return ;
+}
+
+Fixed::~Fixed() {
+	std::cout << "Destructor Called" << std::endl;
+	return ;
+}
+
+Fixed & Fixed::operator=(Fixed const & obj) {
+	std::cout << "Assignation Operator Called" << std::endl;
+	this->_fixedPoint = obj._fixedPoint;
+	return *this;
+}
+
+int Fixed::getRawBits( void ) const {
+	std::cout << "GetRawBits Member Function Called" << std::endl;
+	return _fixedPoint;
+}
+
+void Fixed::setRawBits( int const raw ) {
+	std::cout << "SetRawBits Member Function Called!" << std::endl;
+	_fixedPoint = raw;
+}
