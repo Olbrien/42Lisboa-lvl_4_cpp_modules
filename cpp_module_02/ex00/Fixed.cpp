@@ -1,8 +1,8 @@
 #include "Fixed.hpp"
 
 Fixed::Fixed() {
-	// chamar o set setRawBits e pôr a 0
 	std::cout << "Default Constructor Called" << std::endl;
+	setRawBits(0);
 	return ;
 }
 
