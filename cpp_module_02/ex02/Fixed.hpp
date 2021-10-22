@@ -23,6 +23,9 @@ class Fixed {
 		int		toInt( void ) const;
 
 
+		bool operator>(Fixed const & obj);
+
+
     private:
         int _fixedPoint;
 		static const int _fractBits = 8;

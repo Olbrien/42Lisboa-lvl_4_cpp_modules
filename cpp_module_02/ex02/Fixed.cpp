@@ -1,5 +1,9 @@
 #include "Fixed.hpp"
 
+  /******************/
+ /*  Constructors  */
+/******************/
+
 Fixed::Fixed() {
 	std::cout << "Default Constructor Called" << std::endl;
 	setRawBits(0);
@@ -24,16 +28,18 @@ Fixed::Fixed(float const num) {
 	return ;
 }
 
+  /****************/
+ /*  Destructor  */
+/****************/
+
 Fixed::~Fixed() {
 	std::cout << "Destructor Called" << std::endl;
 	return ;
 }
 
-Fixed & Fixed::operator=(Fixed const & obj) {
-	std::cout << "Assignation Operator Called" << std::endl;
-	_fixedPoint = obj._fixedPoint;
-	return *this;
-}
+  /**********************/
+ /*  Member Functions  */
+/**********************/
 
 int Fixed::getRawBits( void ) const {
 	return _fixedPoint;
@@ -51,6 +57,20 @@ float Fixed::toFloat( void ) const {
 int Fixed::toInt ( void ) const {
 	return ((int)(_fixedPoint >> _fractBits));
 }
+
+  /**************************/
+ /*  Operator Overloading  */
+/**************************/
+
+Fixed & Fixed::operator=(Fixed const & obj) {
+	std::cout << "Assignation Operator Called" << std::endl;
+	_fixedPoint = obj._fixedPoint;
+	return *this;
+}
+
+  /**********************************/
+ /*  Operator Overloading Ostream  */
+/**********************************/
 
 std::ostream & operator<<(std::ostream & output, Fixed const & obj) {
 	output << obj.toFloat();
