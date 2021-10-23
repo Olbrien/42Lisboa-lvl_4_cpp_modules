@@ -14,6 +14,7 @@ In general these projects contain:
 - Namespace, class, member functions, stdio stream, initialization lists, static, const
 - Memory allocation, references, pointers to members, switch
 - Ad-hoc polymorphism, operators overload, orthodox canonical classes
+- Inheritance
 
 
 ## Research:
