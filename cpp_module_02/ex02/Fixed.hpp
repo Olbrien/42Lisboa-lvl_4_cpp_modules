@@ -24,6 +24,27 @@ class Fixed {
 
 
 		bool operator>(Fixed const & obj);
+		bool operator<(Fixed const & obj);
+		bool operator>=(Fixed const & obj);
+		bool operator<=(Fixed const & obj);
+		bool operator==(Fixed const & obj);
+		bool operator!=(Fixed const & obj);
+
+		Fixed operator+(Fixed const & obj);
+		Fixed operator-(Fixed const & obj);
+		Fixed operator*(Fixed const & obj);
+		Fixed operator/(Fixed const & obj);
+
+		Fixed &operator++(void);	// ++a
+		Fixed operator++(int);		// a++
+		Fixed &operator--(void);	// --a
+		Fixed operator--(int);		// a--
+
+
+		static Fixed & min(Fixed & objA, Fixed & objB);
+		static const Fixed & min(Fixed const & objA, Fixed const & objB);
+		static Fixed & max(Fixed & objA, Fixed & objB);
+		static const Fixed & max(Fixed const & objA, Fixed const & objB);
 
 
     private:
