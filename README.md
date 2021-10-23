@@ -7,6 +7,7 @@ You can find the subject of these projects
 
 [cpp_module_00](https://github.com/Olbrien/42Lisboa-lvl_4_cpp_modules/blob/main/cpp_module_00/extras/lvl_4_cpp_module_00.pdf)\
 [cpp_module_01](https://github.com/Olbrien/42Lisboa-lvl_4_cpp_modules/blob/main/cpp_module_01/extras/lvl_4_cpp_module_01.pdf)
+[cpp_module_02](https://github.com/Olbrien/42Lisboa-lvl_4_cpp_modules/blob/main/cpp_module_02/extras/lvl_4_cpp_module_02.pdf)
 
 In general these projects contain:
 - Namespace, class, member functions, stdio stream, initialization lists, static, const
@@ -107,6 +108,38 @@ Constants:
     This are read only and can't be changed.
     You should always declare the variable as constant when you have values that are
     unlikely to change.
+
+    const can be on right or left. If it's on right, it's reading on what's on the left,
+    if it's on the left and there's nothing on the right, it's reading on the right of it.
+
+        canonicalform(canonicalform const & obj);   // Same
+        canonicalform(const canonicalform & obj);   // Same
+
+
+Constants Classes / Functions:
+
+    Example:
+
+            class ConstFunc {
+                public:
+                    int hello(int a) const{
+                        this->_number;
+                    }
+                private:
+                    int _number;
+            };
+
+        This const after hello is the same as having:
+
+                int hello(const ConstFunc* this, int a) const{
+                    this->_number;
+                }
+
+        If you don't have a const at the end it's the same as:
+
+                int hello(ConstFunc* this, int a){
+                    this->_number;
+                }
 
 
 ---------------------------------------------------------------------------------------------
@@ -840,7 +873,7 @@ How to read and write from a file:
 
             /* Reading from filename */
 
-            filename.open("fstream.txt"); // ios::out and ios::in as default. 
+            filename.open("fstream.txt"); // ios::out and ios::in as default.
             if (filename.is_open()) {
                 while (std::getline(filename, line)) {
                     std::cout << line << std::endl;
@@ -850,10 +883,10 @@ How to read and write from a file:
 
 
             /* Writing to the filename */
-            
+
             line = "\nHELLO \nIS IT ME YOU'RE LOOKInG FOR?\n";
 
-            filename.open("fstream.txt", std::ios::in | std::ios::app); // ios::out and ios::in as default and added append. 
+            filename.open("fstream.txt", std::ios::in | std::ios::app); // ios::out and ios::in as default and added append.
             if (filename.is_open()) {
                 filename << line;
             }
@@ -862,7 +895,7 @@ How to read and write from a file:
 
             /* Reading from filename */
 
-            filename.open("fstream.txt"); // ios::out and ios::in as default. 
+            filename.open("fstream.txt"); // ios::out and ios::in as default.
             if (filename.is_open()) {
                 while (std::getline(filename, line)) {
                     std::cout << line << std::endl;
@@ -870,7 +903,7 @@ How to read and write from a file:
             }
             filename.close();
 
-        } 
+        }
 
 
 
@@ -896,9 +929,9 @@ Function Pointers:
             void    helloWorld() {
                 printf("Hello World\n");
             }
-            
+
             int main() {
-                void (*helloWorld_ptr)() = &helloWorld;    
+                void (*helloWorld_ptr)() = &helloWorld;
                 (*helloWorld_ptr)();
 
                 void (*helloNumber_ptr)(int) = &helloNumber;
@@ -924,7 +957,7 @@ Function Pointers:
                 helloNumber_ptr2(99);
             }
 
-        
+
     Example (Switch Case):
 
             void    caseOne(int a) {
@@ -948,15 +981,15 @@ Function Pointers:
                 (*cases[2])(3);
             }
 
-    
+
     Example (As an Argument):
 
             void    asAnArgumentOne(void (*func)()) {
-                func();    
+                func();
             }
 
             void    asAnArgumentTwo(void (*func)(int), int value) {
-                func(value);    
+                func(value);
             }
 
             void    helloNumber(int a) {
@@ -976,7 +1009,7 @@ Function Pointers:
                 asAnArgumentTwo(helloNumber_ptr3, 123);
             }
 
-    
+
     Example (As a Class):
 
             class Karen {
@@ -992,7 +1025,7 @@ Function Pointers:
             };
 
             void Karen::complain() {
-                
+
                 void (Karen::*casePtr[])() = {&Karen::debug, &Karen::info, &Karen::warning, &Karen::error};
 
                 (this->*casePtr[0])();
@@ -1018,11 +1051,642 @@ Function Pointers:
             }
 
             int main() {
-                
+
                 Karen julia;
 
                 julia.complain();
             }
+
+
+
+---------------------------------------------------------------------------------------------
+
+Function Overloading:
+
+    C++ allows you to specify more than one definition for a function name or an operator
+    in the same scope, which is called function overloading and operator overloading
+    respectively.
+
+        class printData {
+            public:
+                void print(int i) {
+                    cout << "Printing int: " << i << endl;
+                }
+                void print(double  f) {
+                    cout << "Printing float: " << f << endl;
+                }
+                void print(char* c) {
+                    cout << "Printing character: " << c << endl;
+                }
+        };
+
+
+Operator Overloading:
+
+    #include <iostream>
+
+    class operatoroverload {
+        public:
+            operatoroverload(float c, float b) : _cima(c), _baixo(b){};
+            ~operatoroverload(){};
+
+            double  getVolume(void) {
+                return _cima + _baixo;
+            }
+            void setCima(float cima) {
+                _cima = cima;
+            }
+            void setBaixo(float baixo) {
+                _baixo = baixo;
+            }
+
+            operatoroverload operator+(const operatoroverload& o) {
+                operatoroverload obj(0, 0);
+
+                obj._baixo = this->_baixo + o._baixo;
+                obj._cima = this->_cima + o._cima;
+
+                return obj;
+            }
+
+            operatoroverload operator-(const operatoroverload& o) {
+                operatoroverload obj(0, 0);
+
+                obj._baixo = this->_baixo - o._baixo;
+                obj._cima = this->_cima - o._cima;
+
+                return obj;
+            }
+
+
+        private:
+            float   _cima;
+            float   _baixo;
+    };
+
+    int main() {
+
+        operatoroverload obj1(2, 2);
+        operatoroverload obj2(4, 4);
+        operatoroverload obj3(0, 0);
+
+        std::cout << obj1.getVolume() << std::endl;
+        std::cout << obj2.getVolume() << std::endl;
+        std::cout << obj3.getVolume() << std::endl;
+
+        obj3 = obj1 + obj2;
+        std::cout << obj3.getVolume() << std::endl;
+
+        obj3 = obj2 - obj1;
+        std::cout << obj3.getVolume() << std::endl;
+
+    }
+
+
+---------------------------------------------------------------------------------------------
+
+Canonical Form (Orthodox Canonical Class Form):
+
+    The Canonical Form for C++99 is the following:
+
+        . Default constructor
+        . Copy constructor
+        . Destructor
+        . Copy assignment operator
+
+
+    Example:
+
+        #include <iostream>
+
+        class canonicalform {
+            public:
+                canonicalform();                                            // canonical form
+                canonicalform(int number);
+                canonicalform(canonicalform const & obj);                   // canonical form
+
+                ~canonicalform();                                           // canonical form
+
+                canonicalform & operator=(canonicalform const & obj);       // canonical form
+
+                int getNumber();
+                void setNumber(int number);
+
+            private:
+                int _number;
+        };
+
+        canonicalform::canonicalform() {
+            return ;
+        }
+
+        canonicalform::canonicalform(int number) : _number(number) {
+            return ;
+        }
+
+        canonicalform::canonicalform(canonicalform const & obj) {
+            _number = obj._number;
+            return ;
+        }
+
+        canonicalform::~canonicalform() {
+            std::cout << "Hello I just fucking died" << std::endl;
+        }
+
+        canonicalform & canonicalform::operator=(canonicalform const & obj) {
+            return *this;
+        }
+
+        int canonicalform::getNumber() {
+            return _number;
+        }
+
+        void canonicalform::setNumber(int number) {
+            _number = number;
+        }
+
+        int main() {
+            canonicalform obj1(5);
+            std::cout << obj1.getNumber() << std::endl;
+
+            canonicalform obj2(obj1);
+            std::cout << obj2.getNumber() << std::endl;
+
+            canonicalform obj3 = obj2;
+            std::cout << obj3.getNumber() << std::endl;
+        }
+
+---------------------------------------------------------------------------------------------
+
+Radix Character:
+
+    In mathematics and computing, a radix point or radix character is a symbol used in the
+    display of numbers to separate the integer part of the value from its fractional part.
+
+    Any such symbol can be called a decimal mark, decimal marker or decimal sign. Symbol-specific
+    names are also used; decimal point and decimal comma.
+
+    Decimal Point = '.'
+    Decimal Comma = ','
+
+
+Print Binary Number:
+
+        #include <stdio.h>
+        #include <unistd.h>
+
+        void printbits(unsigned char v) {
+            int i = 7;
+            while(i >= 0) {
+                putchar('0' + ((v >> i) & 1));
+                i--;
+            }
+        }
+
+        int main() {
+            char binary = 'a';
+            printbits(binary);
+        }
+
+        Output = 01100001
+
+
+    Explanation:
+
+        So, you make a character, in this case it's 'a'.
+        If you go to the ascii table, you know that 'a' is 97.
+
+
+        128      64      32      16       8       4       2       1
+        2^7     2^6     2^5     2^4     2^3     2^2     2^1     2^0
+    -----------------------------------------------------------------
+         0        1       1       0       0       0       0       1     = 97
+
+
+        Now you shift to the right your 'a' or 01100001 by 7, then 6, 5, 4, 3, 2, 1 and 0.
+        Why? Because you're shifting the 8 bits.
+
+        And you are comparing every single one to the 1 or 00000001 with the binary "AND" operator, '&'.
+
+        "AND" & = Copies a bit to the result if it exists in both operands.
+                  Meaning if you have       10010001
+                                 and        11000001
+                                          ------------
+                             the & is =     10000001
+
+
+
+                       01100001                  00000001
+                    ---------------     &      ------------     =
+        Shift 7        00000000                  00000001               0
+        Shift 6        00000001                  00000001               1
+        Shift 5        00000011                  00000001               1
+        Shift 4        00000110                  00000001               0
+        Shift 3        00001100                  00000001               0
+        Shift 2        00011000                  00000001               0
+        Shift 1        00110000                  00000001               0
+        Shift 0        01100001                  00000001               1
+
+
+        This will print the binary number!
+
+
+
+Binary Representation:
+
+    Char = 8 bits (1 byte)
+
+        Depending on what you write and the processor the data type can be "unsigned char"
+        or "signed char".
+
+
+        Unsigned Char (0 to 255)
+
+                  (128)   (64)    (32)    (16)     (8)     (4)     (2)     (1)
+
+                   2^7     2^6     2^5     2^4     2^3     2^2     2^1     2^0
+            ----------------------------------------------------------------------
+                    0       0       0       0       0       0       0       0       = 0
+                    1       1       1       1       1       1       1       1       = 255
+                    1       0       0       0       0       0       0       1       = 129
+
+
+        Signed Char (-128 to +127)
+
+                 (-128)   (64)    (32)    (16)     (8)     (4)     (2)     (1)
+
+                  -2^7     2^6     2^5     2^4     2^3     2^2     2^1     2^0
+            ----------------------------------------------------------------------
+                    0       0       0       0       0       0       0       0       = 0
+                    1       1       1       1       1       1       1       1       = -1
+                    0       1       1       1       1       1       1       1       = 127
+                    0       0       0       1       0       1       0       1       = 21
+                    1       0       0       1       0       1       0       1       = -107
+
+
+    Int = 32 bits (4 bytes)
+
+        Same deal, Int can be Unsigned or Signed but if left undefined it will be signed.
+
+
+        Signed Int (-2,147,483,648 to 2,147,483,647)
+
+
+               -2^31   -2147483648   |     1
+                2^30    1073741824   |     1
+                2^29     536870912   |     1
+                2^28     268435456   |     1
+                2^27     134217728   |     1
+                2^26      67108864   |     1
+                2^25        ...      |     1
+                2^24        ...      |     1
+                2^23        ...      |     1
+                2^22        ...      |     1
+                2^21        ...      |     1
+                2^20        ...      |     1
+                2^19        ...      |     1
+                2^18        ...      |     1
+                2^17        ...      |     1
+                2^16        ...      |     1
+                2^15        ...      |     1
+                2^14        ...      |     1
+                2^13        ...      |     1
+                2^12        ...      |     1
+                2^11        ...      |     1
+                2^10        ...      |     1
+                2^9         ...      |     1
+                2^8         ...      |     1
+                2^7         ...      |     1
+                2^6         ...      |     1
+                2^5         ...      |     1
+                2^4         ...      |     1
+                2^3         ...      |     1
+                2^2          4       |     1
+                2^1          2       |     1
+                2^0          1       |     1
+            ---------------------------------------
+                            -1
+
+
+    Long ints are 64 bits (8 bytes)
+
+        Follows the same logic as above but for 64 bits
+
+
+
+Bases:
+
+    Binary is represented in base 2.
+    Because it's 0 and 1.
+
+        10001001
+                ²
+
+    Decimal system or Denary is represented in base 10.
+    Because it's 0 1 2 3 4 5 6 7 8 and 9.
+
+        137
+           ¹⁰
+
+
+
+
+Fixed Point Numbers:
+
+    These are for numbers that use fractions.
+
+    Fractional Binary numbers have two parts, bits that represent the integer number (the part
+    before the radix point) and the bits that represent the fractional part (the part
+    after the radix point).
+
+
+        Example 1 (Middle Range / Middle Accuracy):
+
+            . 8 bit number
+                - 4 integer numbers
+                - 4 fractional parts
+
+            The Radix Point is in the middle.
+
+            This means the Range and Accuracy are in the same for both. It isn't very accurate or
+            imprecise, it's in the middle.
+
+
+                           Integer Number                            Fractional Part
+                               Range                                    Accuracy
+                 <-------------------------------->       <---------------------------------------->
+
+                    (8)     (4)     (2)     (1)      (.)     (0.5)    (0.25)   (0.125)   (0.0625)
+
+                    2^3     2^2     2^1     2^0       .       2^-1     2^-2     2^-3       2^-4
+            -------------------------------------------------------------------------------------------
+                     0       1       1       0                  1        0        0          0        =   6.5
+                     1       1       1       1                  1        1        1          1        =   15.9375 (max)
+
+
+        Example 2 (High Range / Low Accuracy):
+
+            . 8 bit number
+                - 7 integer numbers
+                - 1 fractional parts
+
+            The Radix Point is in the middle.
+
+            This means the Range is higher, the int value can be higher, but the accuracy is lower.
+
+
+                                        Integer Number                              Fractional Part
+                                            Range                                      Accuracy
+                 <---------------------------------------------------------->        <---------->
+
+                    (64)    (32)    (16)    (8)      (4)       (2)      (1)      (.)    (0.5)
+
+                    2^6     2^5     2^4     2^3      2^2       2^1      2^0       .      2^-1
+            -------------------------------------------------------------------------------------------
+                     0       1       1       0        1         0        0                 0        =   52
+                     1       1       1       1        1         1        1                 1        =   127.5 (max)
+
+
+        Example 3 (Low Range / High Accuracy):
+
+            . 8 bit number
+                - 1 integer numbers
+                - 7 fractional parts
+
+            The Radix Point is in the middle.
+
+            This means the Range is lower, the int value is less, but the accuracy is higher, it has more
+            precision.
+
+
+               Integer Number                              Fractional Part
+                   Range                                      Accuracy
+                <--------->    <------------------------------------------------------------------------------>
+
+                    (1)    (.)    (0.5)    (0.25)    (0.125)   (0.0625)   (0.03125)  (0.015625)  (0.0078125)
+
+                    2^1     .     2^-1      2^-2       2^-3      2^-4        2^-5       2^-6        2^-7
+            ------------------------------------------------------------------------------------------------------
+                     0              1         1          0        1            0          0           0        =   0.8125
+                     1              1         1          1        1            1          1           1        =   1.9921875 (max)
+
+
+
+Floating Point Numbers:
+
+    When you do 1/3 you get = 0.3333333333333...
+    If you do     if (1/3 == 0.33333333...)     it will never be equal.
+
+    Float, Double and Long Doubles have different precisions.
+    You can see their precisions like this:
+
+            #include <iostream>
+            #include <float.h>
+
+            int main() {
+                std::cout << "Float Trust Digits (Precise Digits) = " << FLT_DIG << std::endl;
+                std::cout << "Double Trust Digits (Precise Digits) = " << DBL_DIG << std::endl;
+                std::cout << "Long Double Trust Digits (Precise Digits) = " << LDBL_DIG << std::endl;
+            }
+
+
+            Float Trust Digits (Precise Digits) = 6
+            Double Trust Digits (Precise Digits) = 15
+            Long Double Trust Digits (Precise Digits) = 18
+
+
+        This means that:
+
+                #include <iostream>
+                #include <float.h>
+
+                int main() {
+                    float a = 7.2E5 * 10000000;
+                    double b = 7.2E5 * 10000000;
+
+                    std::cout << a << std::endl;
+                    std::cout << b << std::endl;
+                }
+
+
+                7199999918080.000000
+                7200000000000.000000
+
+
+            Because float is only precise to 6 digits and double to 15.
+
+
+    Mantissa and Exponent:
+
+              (exponent)
+        6.02 x 10²³     =   602000000000000000000000
+     (mantissa)
+
+            This means it goes 23 decimal places after the (.)
+
+        If you have more values in your mantissa, you can express the value with greater
+        precision.
+
+
+
+        6.02123456789 x 10²³     =  60212345678900000000000
+        1.60          x 10⁻¹⁹    =  0.00000000000000000160
+
+
+
+    Real Examples:
+
+        Example 1:
+
+          Mantissa = 10 bits
+          Exponent = 6 bits
+
+
+                    (Mantissa)                  (Exponent)
+          ------------------------------------------------------
+          |  0 . 1  1  0  1  0  0  0  0  0 | 0  0  0  0  1  1  |
+          ------------------------------------------------------
+             ^                               ^
+         (negative)                      (negative)
+
+
+            Step 1:
+                                            -32 16 8  4  2  1
+                                           --------------------
+             0 . 1  1  0  1  0  0  0  0  0 | 0  0  0  0  1  1 |   = 3
+                                           --------------------
+
+             0 . 1  1  0  1  0  0  0  0  0  x  2^3
+
+
+            Step 2:
+
+                Now you go 3 houses forward with the (.)
+
+             -8  4  2  1   0.5 0.25...
+            ----------------------------------
+            | 0  1  1  0 .  1  0  0  0  0  0 |   = 6.5
+            ----------------------------------
+
+
+                0110100000000011    =  6.5
+                                ²         ¹⁰
+
+
+        Example 2:
+
+          Mantissa = 10 bits
+          Exponent = 6 bits
+
+          ----------------------------------------------------
+          |  0  1  0  1  0  1  0  0  0  0 | 0  0  0  0  1  0 |
+          ----------------------------------------------------
+
+          Step 1:
+                                           -32 16 8  4  2  1
+                                          --------------------
+                                          | 0  0  0  0  1  0 |  = 2
+                                          --------------------
+
+             0 . 1  0  1  0  1  0  0  0  0  x  2^2
+
+          Step 2:
+
+            Now you go 2 houses forward with the (.)
+
+             -4   2   1   2⁻¹ 2⁻² 2⁻³ ...
+            -----------------------------------------
+            | 0   1   0 . 1   0   1   0   0   0   0 |  =  2.625
+            -----------------------------------------
+
+                0101010000000010    =  2.625
+                                ²         ¹⁰
+
+
+        Example 3:
+
+          Mantissa = 10 bits
+          Exponent = 6 bits
+
+          ----------------------------------------------------
+          |  0  1  0  0  0  0  0  0  0  0 | 1  1  1  1  1  0 |
+          ----------------------------------------------------
+
+          Step 1:
+
+                                           -32 16 8  4  2  1
+                                          --------------------
+                                          | 1  1  1  1  1  0 |  = -2
+                                          --------------------
+
+            0 . 1  0  0  0  0  0  0  0  0   x  2^-2
+
+
+          Step 2:
+
+            Now you go 2 houses backwards with the (.)
+
+           -1   2^-1  2^-2  2^-3 ...
+          -----------------------------------------------
+          | 0 . 0     0     1    0  0  0  0  0  0  0  0 |  =  0.125
+          -----------------------------------------------
+
+                0100000000111110    =  0.125
+                                ²          ¹⁰
+
+
+
+
+https://www.youtube.com/watch?v=gc1Nl3mmCuY
+https://www.youtube.com/watch?v=maH28ZWR3SU
+https://www.youtube.com/watch?v=cJNm938Xwao&list=PLTd6ceoshprcpen2Jvs_JiuvWvqIAkzea&index=2
+                                                        (Whole Playlist)
+
+---------------------------------------------------------------------------------------------
+
+
+Overloading the << Operator for Your Own Classes:
+
+    You can also overload the '<<' operator for your own classes.
+
+    Example:
+
+        #include <iostream>
+
+        class Date {
+            public:
+                Date(){};
+                Date(int day, int month, int year) : _day(day), _month(month), _year(year){};
+                ~Date(){};
+                int getDay() { return _day; };
+                int getMonth() { return _month; };
+                int getYear() { return _year; };
+            private:
+                int _day;
+                int _month;
+                int _year;
+        };
+
+        std::ostream & operator<<(std::ostream & os, Date & obj);
+
+        std::ostream & operator<<(std::ostream & os, Date & obj) {
+            os << obj.getDay() << "/" << obj.getMonth() << "/" << obj.getYear() << std::endl;
+            return os;
+        }
+
+        int main() {
+            Date obj(28, 3, 1992);
+
+            std::cout << obj;
+        }
+
+
+        Output:
+            28/3/1992
+
+
+
+https://docs.microsoft.com/en-us/cpp/standard-library/overloading-the-output-operator-for-your-own-classes?view=msvc-160
 
 
 
