@@ -8,13 +8,15 @@ You can find the subject of these projects
 [cpp_module_00](https://github.com/Olbrien/42Lisboa-lvl_4_cpp_modules/blob/main/cpp_module_00/extras/lvl_4_cpp_module_00.pdf)\
 [cpp_module_01](https://github.com/Olbrien/42Lisboa-lvl_4_cpp_modules/blob/main/cpp_module_01/extras/lvl_4_cpp_module_01.pdf)\
 [cpp_module_02](https://github.com/Olbrien/42Lisboa-lvl_4_cpp_modules/blob/main/cpp_module_02/extras/lvl_4_cpp_module_02.pdf)\
-[cpp_module_03](https://github.com/Olbrien/42Lisboa-lvl_4_cpp_modules/blob/main/cpp_module_03/extras/lvl_4_cpp_module_03.pdf)
+[cpp_module_03](https://github.com/Olbrien/42Lisboa-lvl_4_cpp_modules/blob/main/cpp_module_03/extras/lvl_4_cpp_module_03.pdf)\
+[cpp_module_03](https://github.com/Olbrien/42Lisboa-lvl_4_cpp_modules/blob/main/cpp_module_04/extras/lvl_4_cpp_module_04.pdf)
 
 In general these projects contain:
 - Namespace, class, member functions, stdio stream, initialization lists, static, const
 - Memory allocation, references, pointers to members, switch
 - Ad-hoc polymorphism, operators overload, orthodox canonical classes
 - Inheritance
+- Subtype polymorphism, abstract classes, interfaces
 
 
 ## Research:
