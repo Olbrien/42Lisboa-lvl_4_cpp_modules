@@ -15,8 +15,8 @@ In general these projects contain:
 - Namespace, class, member functions, stdio stream, initialization lists, static, const
 - Memory allocation, references, pointers to members, switch
 - Ad-hoc polymorphism, operators overload, orthodox canonical classes
-- Inheritance
-- Subtype polymorphism, abstract classes, interfaces
+- Inheritance, The Diamond Problem
+- Shallow Copy, Deep Copy, Subtype polymorphism, abstract classes, interfaces
 
 
 ## Research:
@@ -496,6 +496,105 @@ Multiple Inheritance:
         obj.goodbye();
     }
 
+
+Virtual:
+
+    When dealing with Multiple Inheritances you may end up sharing the same base.
+    When you share the same base you will end up with ambiguities.
+    To deal with those problems you have to use the Virtual keyword.
+
+    Example:
+
+                                 Class Base()
+                                 [int number]
+                                 [float life]
+
+                                 /          \
+                                /            \
+
+              Class Middle_One()          Class Middle_Two()
+                 [int number]                [int number]
+                 [float life]                [float life]
+
+                            \                    /
+                             \                  /
+
+                                  Class Top()
+                                  [int number]
+                                  [int number]
+                                  [float life]
+                                  [float life]
+
+        In this case Class Top() is going to inherit from Middle_One and Middle_Two, but the
+        problem is that both of them inherit from Base, and when it goes to the top it has
+        multiple number and life.
+
+        To solve this you have to inherit Base as a Virtual.
+
+                                 Class Base()
+                                 [int number]
+                                 [float life]
+
+                                 /          \
+                    VIRTUAL     /            \  VIRTUAL
+
+              Class Middle_One()          Class Middle_Two()
+
+                            \                    /
+                             \                  /
+
+                                  Class Top()
+
+    In Code:
+
+            #include <iostream>
+
+            class Base {
+                public:
+                    Base(){ std::cout << "Base Created!" << std::endl; };
+                    ~Base(){ std::cout << "Base Destroyed!" << std::endl; };
+
+                    void mother() {
+                        std::cout << "Soy lá madre, me llamo " << _name << std::endl;
+                    }
+
+                    void setName(std::string name) {
+                        _name = name;
+                    }
+
+                protected:
+                    std::string     _name;
+            };
+
+            class Middle_One : virtual public Base {
+                public:
+                    Middle_One(){ std::cout << "Middle_One Created!" << std::endl; };
+                    ~Middle_One(){ std::cout << "Middle_One Destroyed!" << std::endl; };
+            };
+
+            class Middle_Two : virtual public Base {
+                public:
+                    Middle_Two(){ std::cout << "Middle_Two Created!" << std::endl; };
+                    ~Middle_Two(){ std::cout << "Middle_Two Destroyed!" << std::endl; };
+            };
+
+            class Top : public Middle_One, public Middle_Two {
+                public:
+                    Top(){ std::cout << "Top Created!" << std::endl; };
+                    ~Top(){ std::cout << "Top Destroyed!" << std::endl; };
+            };
+
+            int main() {
+                Top         t_1;
+
+                t_1.setName("Tiagão.");
+                t_1.mother();
+            }
+
+https://www.geeksforgeeks.org/multiple-inheritance-in-c/
+
+
+---------------------------------------------------------------------------------------------
 
 Access Specifiers Protected:
 
@@ -1693,6 +1792,243 @@ Overloading the << Operator for Your Own Classes:
 
 https://docs.microsoft.com/en-us/cpp/standard-library/overloading-the-output-operator-for-your-own-classes?view=msvc-160
 
+
+
+---------------------------------------------------------------------------------------------
+
+Deep Copy and Shallow Copy:
+
+    Shallow Copy:
+        Is when you copy members of the class individually. It works well if they are not allocated.
+        If they are allocated you end up copying the Address and not the content itself.
+
+        What this means is if you have allocated an "int", when you copy to another class,
+        you have the same address of the class you copied, so when you alter the value of the new
+        class you are altering the value of the old class as well.
+
+        Example:
+            #include <iostream>
+
+            class shallowcopy {
+                public:
+                    shallowcopy() {};
+                    shallowcopy(shallowcopy const & obj) {
+                        this->_notAllocated = obj._notAllocated;
+                        this->_allocated = obj._allocated;
+                    };
+                    ~shallowcopy() {};
+
+                    void    printValues() {
+                        std::cout << "Not allocated = " << _notAllocated << std::endl;
+                        std::cout << "Allocated = " << *_allocated << std::endl;
+                    }
+                    void    setValues(int value) {
+                        _notAllocated = value;
+
+                        int *send = new (int);
+                        *send = value;
+                        _allocated = send;
+                    }
+
+                    void    changeValues(int value) {
+                        *_allocated = value;
+                        _notAllocated = value;
+                    }
+
+                private:
+                    int     _notAllocated;
+                    int     *_allocated;
+            };
+
+            int main() {
+                shallowcopy *obj_1 = new shallowcopy();
+
+                std::cout << "Object 1 \n";
+                obj_1->setValues(999);
+                obj_1->printValues();
+
+                shallowcopy *obj_2 = new shallowcopy(*obj_1);
+
+                std::cout << "\nObject 2 \n";
+                obj_2->printValues();
+
+                std::cout << "\nChanging Object 2 \n";
+                obj_2->changeValues(10);
+                obj_2->printValues();
+
+                std::cout << "\nPrinting Object 1 \n";
+                obj_1->printValues();
+            }
+
+        Explanation:
+            So in this case you have:
+            - int     _notAllocated;
+            - int     *_allocated;
+
+            When you create obj_1, you set setValues() for the int normally, and for the
+            *int has an allocation.
+
+            When you copy your obj_1 to obj_2, you copy the int normally and you copy the *int,
+            but you are copying the address and not the content.
+
+            What means, and shown in this example, if you alter the value of the _allocated
+            on the obj_2, you are also changing on the obj_1 and vice-versa.
+
+
+    Deep Copy:
+
+        In this example, instead of just copying the address of the _allocated you make
+        a new copy of the content and not the address.
+
+        Example:
+
+            #include <iostream>
+
+            class deepcopy {
+                public:
+                    deepcopy() {};
+                    deepcopy(deepcopy const & obj) {
+                        this->_notAllocated = obj._notAllocated;
+
+                        int *send = new (int);
+                        *send = *obj._allocated;
+                        this->_allocated = send;
+                    };
+                    ~deepcopy() {};
+
+                    void    printValues() {
+                        std::cout << "Not allocated = " << _notAllocated << std::endl;
+                        std::cout << "Allocated = " << *_allocated << std::endl;
+                    }
+                    void    setValues(int value) {
+                        _notAllocated = value;
+
+                        int *send = new (int);
+                        *send = value;
+                        _allocated = send;
+                    }
+
+                    void    changeValues(int value) {
+                        *_allocated = value;
+                        _notAllocated = value;
+                    }
+
+                private:
+                    int     _notAllocated;
+                    int     *_allocated;
+            };
+
+            int main() {
+                deepcopy *obj_1 = new deepcopy();
+
+                std::cout << "Object 1 \n";
+                obj_1->setValues(999);
+                obj_1->printValues();
+
+                deepcopy *obj_2 = new deepcopy(*obj_1);
+
+                std::cout << "\nObject 2 \n";
+                obj_2->printValues();
+
+                std::cout << "\nChanging Object 2 \n";
+                obj_2->changeValues(10);
+                obj_2->printValues();
+
+                std::cout << "\nPrinting Object 1 \n";
+                obj_1->printValues();
+            }
+
+
+        Explanation:
+            So in this case you have:
+            - int     _notAllocated;
+            - int     *_allocated;
+
+            When you create obj_1, you set setValues() for the int normally, and for the
+            *int has an allocation.
+
+            When you copy your obj_1 to obj_2, you copy the int normally and you copy the *int,
+            but you are making a new allocation, meaning you are not messing with the previous
+            object.
+
+            And now when you alter the obj_2 _allocated it won't mess with the obj_1.
+
+
+---------------------------------------------------------------------------------------------
+
+Interfaces:
+
+    An interface describes the behavior or capabilities of a C++ class without committing
+    to a particular implementation of that class.
+
+    When you create a Base class with all the functions and everything, you may not want
+    to use that class directly, but you might want to inherit from it.
+    From instance, you created the class Animal(), it has makeSound() and a few variables,
+    but you don't want to instantiate it, you want to inherit from it, you want to make
+    a Dog Class from Animal, you don't want to instantiate an Animal.
+
+    The C++ interfaces are implemented using abstract classes.
+
+    A class is made abstract by declaring at least one of its functions as pure virtual
+    function. A pure virtual function is specified by placing "= 0".
+
+    The purpose of an abstract class (often referred to as an ABC) is to provide an appropriate
+    base class from which other classes can inherit. Abstract classes cannot be used to
+    instantiate objects and serves only as an interface.
+
+
+    Example:
+
+        #include <iostream>
+
+        class Animal {
+            public:
+                virtual void     makeSound() = 0;
+                void             setName(std::string name) {
+                    _name = name;
+                };
+                std::string      getName() {
+                    return _name;
+                }
+
+            protected:
+                std::string       _name;
+        };
+
+        class Dog : virtual public Animal {
+            public:
+                Dog() { std::cout << "Dog has been constructed!\n";};
+
+                void makeSound() {
+                    std::cout << _name << " just barked!\n";
+                }
+
+            private:
+
+        };
+
+        class Cat : virtual public Animal {
+            public:
+                Cat() { std::cout << "Cat has been constructed!\n";};
+
+                void makeSound() {
+                    std::cout << _name << " just meowed!\n";
+                }
+
+            private:
+
+        };
+
+        int main() {
+            Dog cao;
+            Cat gato;
+
+            cao.setName("Bobby");
+            cao.makeSound();
+
+            gato.setName("Sebastião");
+            gato.makeSound();
+        }
 
 
 ---------------------------------------------------------------------------------------------

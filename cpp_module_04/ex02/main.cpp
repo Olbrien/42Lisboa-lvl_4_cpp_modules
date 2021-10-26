@@ -28,4 +28,15 @@ int main() {
 		Dog basic;
 		Dog copy(basic);
 	}
+
+	std::cout << std::endl;
+
+	{
+		//Animal	animal;
+		Cat			gato;
+		Dog			cao;
+
+		gato.makeSound();
+		cao.makeSound();
+	}
 }
