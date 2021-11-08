@@ -9,14 +9,16 @@ You can find the subject of these projects
 [cpp_module_01](https://github.com/Olbrien/42Lisboa-lvl_4_cpp_modules/blob/main/cpp_module_01/extras/lvl_4_cpp_module_01.pdf)\
 [cpp_module_02](https://github.com/Olbrien/42Lisboa-lvl_4_cpp_modules/blob/main/cpp_module_02/extras/lvl_4_cpp_module_02.pdf)\
 [cpp_module_03](https://github.com/Olbrien/42Lisboa-lvl_4_cpp_modules/blob/main/cpp_module_03/extras/lvl_4_cpp_module_03.pdf)\
-[cpp_module_04](https://github.com/Olbrien/42Lisboa-lvl_4_cpp_modules/blob/main/cpp_module_04/extras/lvl_4_cpp_module_04.pdf)
+[cpp_module_04](https://github.com/Olbrien/42Lisboa-lvl_4_cpp_modules/blob/main/cpp_module_04/extras/lvl_4_cpp_module_04.pdf)\
+[cpp_module_05](https://github.com/Olbrien/42Lisboa-lvl_4_cpp_modules/blob/main/cpp_module_05/extras/lvl_4_cpp_module_05.pdf)
 
 In general these projects contain:
 - Namespace, class, member functions, stdio stream, initialization lists, static, const
 - Memory allocation, references, pointers to members, switch
 - Ad-hoc polymorphism, operators overload, orthodox canonical classes
 - Inheritance, The Diamond Problem
-- Shallow Copy, Deep Copy, Subtype polymorphism, abstract classes, interfaces
+- Shallow Copy, Deep Copy, Subtype polymorphism, abstract classes, concrete classes, interfaces
+- Repetition and Exceptions
 
 
 ## Research:
@@ -2030,6 +2032,25 @@ Interfaces:
             gato.makeSound();
         }
 
+
+    If you try to put:
+
+        int main() {
+            Animal animal;
+        }
+
+    This will give an error.
+        "error: cannot declare variable ‘animal’ to be of abstract type ‘Animal’"
+        "note:   because the following virtual functions are pure within ‘Animal’:
+                        ‘virtual void Animal::makeSound() = 0’
+
+
+
+Concrete:
+
+    C++ supports the distinction between an interface and its implementations through abstract
+    and concrete classes. An abstract class is a base class that defines an interface,
+    while a concrete class is a derived class that implements that interface.
 
 ---------------------------------------------------------------------------------------------
 </pre>
