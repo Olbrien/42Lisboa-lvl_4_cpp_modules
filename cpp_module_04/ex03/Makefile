@@ -7,7 +7,7 @@ CFLAGS = -Wall -Wextra -Werror -std=c++98
 
 #### ######## #### #### ######## #### #### ######## #### #### ######## #### #### ######## ####
 
-ROOT_SOURCES = main Ice Cure AMateria Character ICharacter
+ROOT_SOURCES = main Ice Cure AMateria Character ICharacter MateriaSource
 
 SRC = $(addsuffix .cpp, $(addprefix , $(ROOT_SOURCES)))
 

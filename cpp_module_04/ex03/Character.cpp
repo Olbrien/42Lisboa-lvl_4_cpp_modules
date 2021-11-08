@@ -50,7 +50,7 @@ Character& Character::operator=(const Character& obj)
 	}
 	for (int i = 0; i < 4; i++)
 	{
-		if (obj._materias[i] != NULL)
+		if (obj._materias[i] == NULL)
 			this->_materias[i] = obj._materias[i]->clone();
 	}
 	this->_name = obj._name;
