@@ -18,7 +18,7 @@ In general these projects contain:
 - Ad-hoc polymorphism, operators overload, orthodox canonical classes
 - Inheritance, The Diamond Problem
 - Shallow Copy, Deep Copy, Subtype polymorphism, abstract classes, concrete classes, interfaces
-- Repetition and Exceptions
+- Nested classes, Repetition and Exceptions
 
 
 ## Research:
