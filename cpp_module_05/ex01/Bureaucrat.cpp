@@ -59,6 +59,16 @@ void Bureaucrat::decreaseGrade() {
 	_grade++;
 }
 
+void Bureaucrat::signForm(Form & form) {
+	if (form.getSigned() == 1) {
+		std::cout << getName() << " signs " << form.getName() << std::endl;
+	}
+	else {
+		std::cout << getName() << " cannot sign " << form.getName()
+				  << " because grade too low " << std::endl;
+	}
+}
+
   /**************************/
  /*  Operator Overloading  */
 /**************************/

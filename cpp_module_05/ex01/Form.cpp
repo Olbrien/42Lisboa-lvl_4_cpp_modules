@@ -9,8 +9,16 @@ Form::Form() : _name("Garbage Form"), _gradeToSign(10), _gradeToExecute(50) {
     return ;
 }
 
-Form::Form(std::string const name, bool isSigned, int const gradeToSign, int const gradeToExecute) : 
+Form::Form(std::string const name, bool isSigned, int const gradeToSign, int const gradeToExecute) :
                                   _name(name), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute) {
+
+	if (gradeToSign < 1 || gradeToExecute < 1) {
+		throw GradeTooHighException();
+	}
+	if (gradeToSign > 150 || gradeToExecute > 150) {
+		throw GradeTooLowException();
+	}
+
     _isSigned = isSigned;
     return ;
 }
@@ -47,6 +55,15 @@ int Form::getGradeToSign() {
 
 int Form::getGradeToExecute() {
     return _gradeToExecute;
+}
+
+void Form::beSigned(Bureaucrat & buro) {
+	if (buro.getGrade() >= _gradeToSign) {
+		buro.signForm(*this);
+		throw GradeTooLowException();
+	}
+	_isSigned = true;
+	buro.signForm(*this);
 }
 
   /**************************/

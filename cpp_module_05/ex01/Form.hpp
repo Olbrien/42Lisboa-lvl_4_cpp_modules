@@ -3,11 +3,14 @@
 
 #include <iostream>
 #include <exception>
+#include "Bureaucrat.hpp"
+
+class Bureaucrat;
 
 class Form {
     public:
         Form();                                                     //
-        Form(std::string const name, bool isSigned, int const gradeToSign, int const gradeToExecute); 
+        Form(std::string const name, bool isSigned, int const gradeToSign, int const gradeToExecute);
         Form(Form const & obj);                                     //
         ~Form();                                                    //
         Form & operator=(Form const & obj);                         //
@@ -29,6 +32,8 @@ class Form {
         bool                getSigned();
         int                 getGradeToSign();
         int                 getGradeToExecute();
+
+		void				beSigned(Bureaucrat & buro);
 
     private:
         std::string const   _name;

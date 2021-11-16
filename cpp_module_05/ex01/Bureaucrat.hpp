@@ -3,6 +3,9 @@
 
 #include <iostream>
 #include <exception>
+#include "Form.hpp"
+
+class Form;
 
 class Bureaucrat {
 	public:
@@ -11,12 +14,6 @@ class Bureaucrat {
 		Bureaucrat(std::string const & name, int grade);
 		~Bureaucrat();										//
 		Bureaucrat & operator=(Bureaucrat const & obj);		//
-
-		std::string const getName();
-		int getGrade();
-
-		void increaseGrade();
-		void decreaseGrade();
 
 		class GradeTooHighException : public std::exception {
 			public:
@@ -31,6 +28,14 @@ class Bureaucrat {
 					return "Grade Too Low Exception";
 				}
 		};
+
+		std::string const getName();
+		int getGrade();
+
+		void increaseGrade();
+		void decreaseGrade();
+
+		void signForm(Form & form);
 
 
 	private:
