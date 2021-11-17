@@ -10,15 +10,17 @@ You can find the subject of these projects
 [cpp_module_02](https://github.com/Olbrien/42Lisboa-lvl_4_cpp_modules/blob/main/cpp_module_02/extras/lvl_4_cpp_module_02.pdf)\
 [cpp_module_03](https://github.com/Olbrien/42Lisboa-lvl_4_cpp_modules/blob/main/cpp_module_03/extras/lvl_4_cpp_module_03.pdf)\
 [cpp_module_04](https://github.com/Olbrien/42Lisboa-lvl_4_cpp_modules/blob/main/cpp_module_04/extras/lvl_4_cpp_module_04.pdf)\
-[cpp_module_05](https://github.com/Olbrien/42Lisboa-lvl_4_cpp_modules/blob/main/cpp_module_05/extras/lvl_4_cpp_module_05.pdf)
+[cpp_module_05](https://github.com/Olbrien/42Lisboa-lvl_4_cpp_modules/blob/main/cpp_module_05/extras/lvl_4_cpp_module_05.pdf)\
+[cpp_module_06](https://github.com/Olbrien/42Lisboa-lvl_4_cpp_modules/blob/main/cpp_module_06/extras/lvl_4_cpp_module_06.pdf)
 
 In general these projects contain:
 - Namespace, class, member functions, stdio stream, initialization lists, static, const
 - Memory allocation, references, pointers to members, switch
 - Ad-hoc polymorphism, operators overload, orthodox canonical classes
-- Inheritance, The Diamond Problem
-- Shallow Copy, Deep Copy, Subtype polymorphism, abstract classes, concrete classes, interfaces
-- Nested classes, Repetition and Exceptions
+- Inheritance, the diamond problem
+- Shallow copy, deep copy, subtype polymorphism, abstract classes, concrete classes, interfaces
+- Nested classes, repetition and exceptions
+- Casts, implicit and explicit conversions, reinterpret cast
 
 
 ## Research:
