@@ -2055,4 +2055,634 @@ Concrete:
     while a concrete class is a derived class that implements that interface.
 
 ---------------------------------------------------------------------------------------------
+
+Nested Classes:
+
+    A nested class is a class that is declared in another class. The nested class is also
+    a member variable of the enclosing class and has the same access rights as the other
+    members. However, the member functions of the enclosing class have no special access
+    to the members of a nested class.
+
+
+        #include <iostream>
+
+        class A {
+            public:
+                class B {
+                    public:
+                        void putNbr(int num) {
+                            _num = num;
+                        }
+                        void printNbr() {
+                            std::cout << _num << std::endl;
+                        }
+                    private:
+                        int     _num;
+                };
+        };
+
+        int main() {
+            A::B alo;
+            alo.putNbr(2);
+            alo.printNbr();
+        }
+
+---------------------------------------------------------------------------------------------
+
+Exceptions:
+
+    A C++ exception is a response to an exceptional circumstance that arises while a program is
+    running, such as an attempt to divide by zero. Exceptions provide a way to transfer control
+    from one part of a program to another. C++ exception handling is built upon three
+    keywords: try, catch, and throw.
+
+
+    With char *:
+
+        #include <iostream>
+
+        int main() {
+            int a = 10;
+            int b = 0;
+            int c;
+
+            try {
+                if (b == 0) {
+                    throw "Divided by zero";
+                }
+                c = a/b;
+            }
+            catch(const char *e) {
+                std::cout << "Exception occured: " << e << std::endl;
+            }
+        }
+
+
+Standard exceptions:
+
+    <stdexcept>
+
+        logic_error:	    exception class to indicate violations of logical
+                                preconditions or class invariants
+        invalid_argument: 	exception class to report invalid arguments
+        domain_error:   	exception class to report domain errors
+        length_error:   	exception class to report attempts to exceed maximum allowed size
+        out_of_range: 	    exception class to report arguments outside of expected range
+        runtime_error       exception class to indicate conditions only detectable at run time
+        range_error         exception class to report range errors in internal computations
+        overflow_error      exception class to report arithmetic overflows
+        underflow_error     exception class to report arithmetic underflows
+
+
+    https://en.cppreference.com/w/cpp/header/stdexcept
+
+
+        #include <iostream>
+        #include <stdexcept>
+
+        int main() {
+            int a = 10;
+            int b = 0;
+            int c;
+
+            try {
+                if (b == 0) {
+                    throw std::runtime_error("Divided by zero");
+                }
+                c = a / b;
+            }
+            catch (std::runtime_error & error) {
+                std::cout << "Exception thrown" << std::endl;
+                std::cout << error.what() << std::endl;
+            }
+        }
+
+
+Multiple exceptions:
+
+    #include <iostream>
+    #include <stdexcept>
+
+    int main() {
+        int a = 20;
+        int b = 2; // Change this value to 0 / 1 / 2 for the Throws
+        int c;
+
+        try {
+            if (b == 0) {
+                throw "B is 0 dude";
+            }
+            if (b == 1) {
+                throw 1;
+            }
+            if (b == 2) {
+                throw std::logic_error("It's 2");
+            }
+            c = a / b;
+        }
+        catch (const char *error) {
+            std::cout << "Throw exception: ";
+            std::cout << error << std::endl;
+        }
+        catch (int error) {
+            std::cout << "Throw exception: ";
+            std::cout << error << std::endl;
+        }
+        catch (std::logic_error & error) {
+            std::cout << "Throw exception: ";
+            std::cout << error.what() << std::endl;
+        }
+    }
+
+
+    Or you can use (...) on the Catch to catch anything.
+
+
+Function Exception:
+
+    #include <iostream>
+    #include <stdexcept>
+
+    void    test() throw(char, int, std::runtime_error) {
+        //throw(20);
+        //throw('a');
+        throw(std::runtime_error("I FUCKED UP ChARLiee"));
+    }
+
+    int main() {
+        try {
+            test();
+        }
+        catch (char error) {
+            std::cout << "Exception char error: " << error << std::endl;
+        }
+        catch (int error) {
+            std::cout << "Exception int error: " << error << std::endl;
+        }
+        catch (std::runtime_error error) {
+            std::cout << "Exception runtime error: " << error.what() << std::endl;
+        }
+    }
+
+
+Nested Exceptions:
+
+    It has nested exceptions, and when you call the throw, you can call it the outter one
+    as well.
+
+        #include <iostream>
+        #include <stdexcept>
+
+        int main() {
+            try {
+                try {
+                    throw (std::runtime_error("<--2-->"));
+                }
+                catch (std::runtime_error error) {
+                    std::cout << "runtime error inner: " << error.what() << std::endl;
+                    throw;
+                }
+
+                throw (std::runtime_error("<--1-->"));
+            }
+            catch (std::runtime_error error) {
+                std::cout << "runtime error outter: " << error.what() << std::endl;
+            }
+        }
+
+        output:
+            runtime error inner:  <--2-->
+            runtime error outter: <--2-->
+
+
+Created exception:
+
+    #include <iostream>
+    #include <exception>
+
+    class Hare : public std::exception {
+        public:
+            virtual const char* what() throw() {
+                return "This is an exception";
+            }
+    };
+
+    int main() {
+        Hare obj;
+
+        try {
+            throw obj;
+        }
+        catch (Hare error) {
+            std::cout << error.what() << std::endl;
+        }
+    }
+
+---------------------------------------------------------------------------------------------
+
+Casting:
+
+    Implicit Conversions and Explicit Conversions:
+
+        int a = 42;                 // Reference Value
+
+        double b = a;               // Implicit conversion cast
+        double c = (double) a;      // Explicit conversion cast
+
+        double d = a;               // Implicit promotion --> OK
+        int e = d;                  // Implicit demotion --> BAD
+        int f = (int) d;            // Explicit demotion --> OK, you're in charge
+
+
+    Type reinterpretation:
+
+        float a = 420.042f;          // Reference Value
+
+        void *b = &a;                // Implicit reinterpretation cast
+        void *c = (void *)&a;        // Explicit reinterpretation cast
+
+        void *d = &a;                // Implicit promotion --> OK
+        //int *e = d;                // Implicit demotion --> BAD           (DOESN'T WORK)
+        int *f = (int *)d;           // Implicit demotion --> OK, I OBEY
+
+
+    Qualifier reinterpretation:
+
+        int a = 42;                         // Reference Value
+
+        int const *b = &a;                  // Implicit reinterpretation cast
+        int const *c = (int const *)&a;     // Explicit reinterpretation cast
+
+        int const *d = &a;                  // Implicit promotion --> OK
+        //int *e = d;                       // Implicit demotion --> BAD
+        int *f = (int *)d;                  // Implicit demotion --> OK, I OBEY
+
+
+    Classes reinterpretation:
+
+        ChildA  a;                          // Reference Value
+
+        Parent *b = &a;                     // Implicit reinterpretation cast
+        Parent *c = (Parent *)&a;           // Explicit reinterpretation cast
+
+        Parent *d = &a;                     // Implicit Upcast --> OK
+        //ChildA *e = d;                    // Implicit Downcast --> BAD
+        ChildB *f = (ChildB *)d;            // Implicit Downcast --> OK, NOT GOOD BUT SURE
+
+
+
+
+Static Cast:
+
+    It's called Static Cast because it's ran at compile time.
+    It is a compile time cast, it means that if you can't do the cast, it will fail during
+    compilation. Unlike the C casts that are at runtime, it will only be detected during
+    runtime.
+
+    It does things like implicit conversions between types (such as int to float, or pointer
+    to void*), and it can also call explicit conversion functions (or implicit ones).
+
+
+
+        Example 1:
+
+            int main() {
+                float f = 42.5f;
+
+                int a = f;                    // This is what you do in C.
+                int b = static_cast<int>(f);  // This is what you do in C++
+            }
+
+            This will work.
+
+
+        Example 2:
+
+            int main() {
+                int a = 10;
+                char c = 'a';
+
+                int *q = (int*)&c;               // This is what you do in C.
+                int *p = static_cast<int*>(&c);  // This is what you do in C++.
+            }
+
+            This will not work.
+            The C way may work, but will give errors during runtime.
+            The C++ won't work.
+
+            error: static_cast from 'char *' to 'int *' is not allowed.
+
+
+            This means that even if you think you can some how typecast a particular
+            object int another but its illegal, static_cast will not allow you to do this.
+
+
+        Example 3:
+
+                class Base {};
+                class Derived : public Base {};
+
+                int main() {
+                    Derived der;
+
+                    Base * base = (Base *)&der;                 // This is what you do in C.
+                    Base * base2 = static_cast<Base *>(&der);   // This is what you do in C++.
+                }
+
+                These will work, both.
+
+
+        Example 4:
+
+                class Base {};
+                class Derived : private Base {};
+
+                int main() {
+                    Derived der;
+
+                    Base * base = (Base *)&der;                 // This is what you do in C.
+                    Base * base2 = static_cast<Base *>(&der);   // This is what you do in C++.
+                }
+
+                Only the one in C will work, the C++ won't work because it's private.
+
+
+
+
+    https://www.geeksforgeeks.org/static_cast-in-c-type-casting-operators/
+
+
+
+
+Dynamic Cast:
+
+    It is a run-time cast.
+    In C++, dynamic casting is mainly used for safe downcasting at run time.
+    To work on dynamic_cast there must be one virtual function in the base class.
+    A dynamic_cast works only polymorphic base class because it uses this information
+    to decide safe downcasting.
+
+    If the casting works, the casting will have the corresponding value
+
+    If it fails and the "type"      dynamic_cast<type *>      is a pointer, it returns
+    null pointer.
+    If it fails and the "type"      dynamic_cast<type &>      is a reference, it throws
+    an exception.
+
+
+                                  ------------------
+    |                            |    Base Class    |                              .
+    |                            /------------------\                             /|\
+    |  Downcasting              /                    \                  Upcasting  |
+    |               -------------------           -------------------              |
+   \|/             |  Derived Class 1  |         |  Derived Class 2  |             |
+    '               -------------------           -------------------              |
+
+
+
+        Example 1 (Working):
+
+            #include <iostream>
+
+            class Base {
+                virtual void print() { std::cout << "Base Print!" << std::endl; }
+            };
+            class Derived1 : public Base {
+                void print() { std::cout << "Derived 1 Print!" << std::endl; }
+            };
+            class Derived2 : public Base {
+                void print() { std::cout << "Derived 2 Print!" << std::endl; }
+            };
+
+            int main() {
+                Base *base = new Derived1;
+                Derived1 *derived1 = dynamic_cast<Derived1 *>(base);
+            }
+
+
+            This works perfectly, no problem.
+
+
+
+        Example 2 (Null Pointer):
+
+            #include <iostream>
+
+            class Base {
+                virtual void print() { std::cout << "Base Print!" << std::endl; }
+            };
+            class Derived1 : public Base {
+                void print() { std::cout << "Derived 1 Print!" << std::endl; }
+            };
+            class Derived2 : public Base {
+                void print() { std::cout << "Derived 2 Print!" << std::endl; }
+            };
+
+            int main() {
+                Base *base = new Derived1;
+
+                Derived1 *derived1 = dynamic_cast<Derived1 *>(base);
+                Derived2 *derived2 = dynamic_cast<Derived2 *>(base);
+
+                if (derived1 == NULL)
+                    std::cout << "derived1 IS NULL" << std::endl;
+                if (derived2 == NULL)
+                    std::cout << "derived2 IS NULL" << std::endl;
+            }
+
+            Output:
+                    "derived2 IS NULL"
+
+            This case dynamic_cast failed on derived2, you can check it with an if.
+
+
+
+        Example 3 (Exception error):
+
+            #include <iostream>
+            #include <exception>
+
+            class Base {
+                virtual void print() { std::cout << "Base Print!" << std::endl; }
+            };
+            class Derived1 : public Base {
+                void print() { std::cout << "Derived 1 Print!" << std::endl; }
+            };
+            class Derived2 : public Base {
+                void print() { std::cout << "Derived 2 Print!" << std::endl; }
+            };
+
+            int main() {
+                {
+                    Base *base = new Derived1;
+
+                    try {
+                        Derived1 &derived1 = dynamic_cast<Derived1 &>(base);
+                    }
+                    catch (std::exception &e) {
+                        std::cout << e.what() << std::endl;
+                    }
+                }
+            }
+
+            Output:
+                    "std::bad_cast"
+
+            Passing by reference you get a throw exception.
+
+
+    https://www.geeksforgeeks.org/dynamic-_cast-in-cpp/
+
+
+
+
+Reinterpert Cast:
+
+    This one is used mostly when you receive a variable that most likely is a void, and you know
+    what it is so you reinterpert it to what you want it to be.
+
+        Example 1:
+
+            #include <iostream>
+
+            int main() {
+
+                std::string teste = "Olá";
+                void *teste2 = static_cast<void *>(&teste);
+
+                std::string *teste3 = reinterpret_cast<std::string *>(teste2);
+
+                std::cout << *teste3 << std::endl;
+            }
+
+
+    https://www.geeksforgeeks.org/reinterpret_cast-in-c-type-casting-operators/
+
+
+
+
+
+Const Cast:
+
+    Const Cast is used to cast away the constness of variables.
+
+    This cast is the cast you will want to use the least, if you need to use this cast,
+    something might be wrong with your code.
+
+        Example 1:
+
+            #include <iostream>
+
+            class Cow {};
+
+            int main() {
+                {
+                    Cow const *cow = new Cow;
+                    //Cow *cow2 = cow;                     <-- This doesn't work because it's not const.
+                    Cow *cow2 = const_cast<Cow *>(cow); // <-- This now works because it's const.
+                }
+            }
+
+
+https://www.geeksforgeeks.org/const_cast-in-c-type-casting-operators/?ref=lbp
+
+
+---------------------------------------------------------------------------------------------
+
+Cast Operators:
+
+    You can use the Operators in classes to Cast.
+
+        Example:
+
+            #include <iostream>
+
+            class Base {
+                public:
+                    Base(float number) : _number(number) {};
+
+                    float getValue() { return _number; };
+
+                    operator float() { return _number; };
+                    operator int() { return static_cast<int>(_number); };
+
+                private:
+                    float   _number;
+            };
+
+            int main() {
+                Base num1(42.1234);
+                float num2 = num1;
+                int num3 = num1;
+
+                std::cout << num1.getValue() << std::endl;
+                std::cout << num2 << std::endl;
+                std::cout << num3 << std::endl;
+            }
+
+            Output:
+                42.1234
+                42.1234
+                42
+
+
+---------------------------------------------------------------------------------------------
+
+Explicit:
+
+    If a class has a constructor which can be called with a single argument, then this
+    constructor becomes conversion constructor because such a constructor allows conversion of
+    the single argument to the class being constructed.
+
+    We can avoid such implicit conversions as these may lead to unexpected results.
+    We can make the constructor explicit with the help of explicit keyword.
+
+    The explicit function specifier controls unwanted implicit type conversions.
+    It can only be used in declarations of constructors within a class declaration.
+
+
+        Example:
+
+            #include <iostream>
+
+            class Base {
+                public:
+                    Base(int numba) : _numba(numba) {};
+
+                    void print() {
+                        std::cout << _numba << std::endl;
+                    }
+
+                private:
+                    int   _numba;
+            };
+
+            class Base2 {
+                public:
+                    explicit Base2(int numba) : _numba(numba) {};
+
+                    void print() {
+                        std::cout << _numba << std::endl;
+                    }
+
+                private:
+                    int   _numba;
+            };
+
+            int main() {
+                {
+                    Base bx_1(42);
+                    Base bx_2 = 10;
+                    bx_1.print();
+                    bx_2.print();
+                }
+                {
+                    Base2 bx_1(42);
+                    // Base2 bx_2 = 10;   <---- Doesn't work, it's implicit when you can only explicit.
+                    bx_1.print();
+                }
+            }
+
+
+---------------------------------------------------------------------------------------------
 </pre>
