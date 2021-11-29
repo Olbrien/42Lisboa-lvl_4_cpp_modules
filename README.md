@@ -20,7 +20,7 @@ In general these projects contain:
 - Inheritance, the diamond problem
 - Shallow copy, deep copy, subtype polymorphism, abstract classes, concrete classes, interfaces
 - Nested classes, repetition and exceptions
-- Casts, implicit and explicit conversions, reinterpret cast
+- Implicit and explicit conversions, reinterpret cast, static cast, dynamic cast, const cast, upcasting and downcasting
 
 
 ## Research:
