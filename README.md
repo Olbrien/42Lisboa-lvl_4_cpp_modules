@@ -22,7 +22,7 @@ In general these projects contain:
 - Shallow copy, deep copy, subtype polymorphism, abstract classes, concrete classes, interfaces
 - Nested classes, repetition and exceptions
 - Implicit and explicit conversions, reinterpret cast, static cast, dynamic cast, const cast, upcasting and downcasting
-- Templates
+- Function templates, class templates and template specialization
 
 
 ## Research:
