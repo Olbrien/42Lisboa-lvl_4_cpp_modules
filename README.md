@@ -2689,4 +2689,486 @@ Explicit:
 
 
 ---------------------------------------------------------------------------------------------
+
+Templates:
+
+    A template is a simple and yet very powerful tool in C++.
+    The simple idea is to pass data type as a parameter so that we don’t need to write the
+    same code for different data types.
+
+    For example, a software company may need sort() for different data types.
+    Rather than writing and maintaining the multiple codes, we can write one sort()
+    and pass data type as a parameter.
+
+    C++ adds two new keywords to support templates: ‘template’ and ‘typename’.
+    The second keyword can always be replaced by keyword ‘class’.
+
+
+    How do templates work?
+
+        Templates are expanded at compiler time. This is like macros.
+        The difference is, the compiler does type checking before template expansion.
+        The idea is simple, source code contains only function/class, but compiled code
+        may contain multiple copies of same function/class.
+
+
+
+Function Templates:
+
+    The format for declaring function templates with type parameters is:
+
+        template <class identifier> function_declaration;
+        template <typename identifier> function_declaration;
+
+    The only difference between both prototypes is the use of either the keyword class
+    or the keyword typename. Its use is indistinct, since both expressions have exactly
+    the same meaning and behave exactly the same way.
+
+
+    Example 1 (Normal):
+
+        #include <iostream>
+
+        template <typename T>               // This case it could be used <class T>, same thing.
+        T max(T x, T y) {
+            return (x >= y ? x : y);
+        }
+
+        int main() {
+            int a = 200;
+            int b = 300;
+
+            long c = 9000;
+            long d = -2000;
+
+            std::cout << max<int>(a, b) << std::endl;  // Explicit instanciation
+            std::cout << max(c, d) << std::endl;       // Implicit instanciation
+        }
+
+        Explicit instanciation will be the norm to use, implicit should not be used that often.
+
+
+    Example 2 (Multiple typenames):
+
+        template <typename T, typename U>
+        T min(T x, U y) {
+            return (x < y ? x : y);
+        }
+
+        int main() {
+            int a = 200;
+            long d = -2000;
+
+            std::cout << min<int, long>(a, d) << std::endl;
+            std::cout << min(a, d) << std::endl;
+        }
+
+
+    Example 3 (Default Typename):
+
+        template <typename T = float, typename U = int>
+        void print(T x, U y) {
+            std::cout << x << std::endl;
+            std::cout << y << std::endl;
+        }
+
+        int main() {
+            print<>(125.55, 55.55);
+            print<float, float>(125.55, 55.55);
+        }
+
+
+
+Class Templates:
+
+    Like function templates, class templates are useful when a class defines something
+    that is independent of the data type. Can be useful for classes like LinkedList,
+    BinaryTree, Stack, Queue, Array, etc.
+
+
+    Example 1:
+
+        #include <iostream>
+
+        template <class T>
+        class Array {
+            public:
+                Array(T arr[], int s);
+                void print();
+
+            private:
+                T       *ptr;
+                int     size;
+        };
+
+        template <class T>
+        Array<T>::Array(T arr[], int s) {
+            ptr = new T[s];
+            size = s;
+            for(int i = 0; i < size; i++)
+                ptr[i] = arr[i];
+        }
+
+        template <typename T>
+        void Array<T>::print() {
+            for (int i = 0; i < size; i++)
+                std::cout<<" "<<*(ptr + i);
+            std::cout<<std::endl;
+        }
+
+        int main() {
+            int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+            Array<int> a(arr, 9);
+            a.print();
+            return 0;
+        }
+
+
+
+Templates Specialization:
+
+    Imagine you want to build a template to handle only numbers, but you pass a Character.
+    You want to deal the Strings and Characters in a different way you do if you passed
+    numbers.
+    This is what template specializations are for.
+
+
+    Example 1 (Classes):
+
+        #include <iostream>
+
+        template <typename T>
+        class Base {
+            public:
+                Base(T x) {
+                    std::cout << x << " is not a character!" << std::endl;
+                }
+        };
+
+        template <>
+        class Base<char> {
+            public:
+                Base(char x) {
+                    std::cout << x << " is a character!" << std::endl;
+                }
+        };
+
+        int main() {
+            Base<int> a(25);
+            Base<float> b(99.5);
+            Base<char> c('x');
+        }
+
+        Output:
+                25 is not a character!
+                99.5 is not a character!
+                x is a character!
+
+
+
+    Example 2 (Functions):
+
+        #include <iostream>
+
+        template <typename T>
+        void print() {
+            std::cout << "this is not a string!" << std::endl;
+        }
+
+        template <>
+        void print<std::string>() {
+            std::cout << "this is a string!" << std::endl;
+        }
+
+        int main() {
+            print<float>();
+            print<std::string>();
+        }
+
+        Output:
+            this is not a string!
+            this is a string!
+
+
+---------------------------------------------------------------------------------------------
+
+Standard Template Library (STL):
+
+    The Standard Template Library (STL) is a set of C++ template classes to
+    provide common programming data structures and functions such as lists, stacks,
+    arrays, etc. It is a library of container classes, algorithms, and iterators.
+
+    It is a generalized library and so, its components are parameterized.
+
+    Standard Template Library has 4 components:
+
+        Containers:
+
+            A container is a holder object that stores a collection of other objects
+            (its elements). They are implemented as class templates, which allows a great
+            flexibility in the types supported as elements.
+
+            The container manages the storage space for its elements and provides member
+            functions to access them, either directly or through iterators (reference objects
+            with similar properties to pointers).
+
+            Containers replicate structures very commonly used in programming: dynamic arrays
+            (vector), queues (queue), stacks (stack), heaps (priority_queue), linked lists(list),
+            trees (set), associative arrays (map)...
+
+                - Vector
+                - List
+                - Deque
+                - Arrays
+                - Queue
+                - Stack
+                - Map
+
+
+
+        Iterators:
+
+            Iterators are used to point at the memory addresses of STL containers.
+            They are primarily used in sequence of numbers, characters etc.
+            They reduce the complexity and execution time of program.
+
+            We can use iterators to move through the contents of the container.
+            They can be visualized as something similar to a pointer pointing to some location
+            and we can access the content at that particular location using them.
+
+                - Begin
+                - End
+                - Advance
+                - Next
+                - Previous
+
+
+        Algorithms:
+
+            The header <algorithm> defines a collection of functions especially designed
+            to be used on ranges of elements.
+
+            The header algorithm defines a collection of functions especially designed to
+            be used on ranges of elements.They act on containers and provide means for various
+            operations for the contents of the containers.
+
+                - Sorting
+                - Searching
+                - Reverse
+                - Find
+                - Binary Search
+
+
+
+        Functors (Function Objects):
+
+            Functors are objects that can be treated as though they are a function or
+            function pointer.
+
+
+
+std::vector:
+
+    Vectors are sequence containers representing arrays that can change in size.
+    But unlike arrays, their size can change dynamically, with their storage being handled
+    automatically by the container.
+
+    Internally, vectors use a dynamically allocated array to store their elements.
+    This array may need to be reallocated in order to grow in size when new elements are inserted,
+    which implies allocating a new array and moving all elements to it.
+    This is a relatively expensive task in terms of processing time, and thus, vectors do not
+    reallocate each time an element is added to the container.
+
+    Instead, vector containers may allocate some extra storage to accommodate for possible growth,
+    and thus the container may have an actual capacity greater than the storage strictly needed
+    to contain its elements (i.e., its size).
+
+
+    Vector Functions:
+
+        size():
+                Returns the number of elements in the vector.
+
+        capacity():
+                Returns the size of the storage space currently allocated for the vector,
+                expressed in terms of elements.
+
+                This capacity is not necessarily equal to the vector size. It can be equal or greater,
+                with the extra space allowing to accommodate for growth without the need to
+                reallocate on each insertion.
+
+                Notice that this capacity does not suppose a limit on the size of the vector.
+                When this capacity is exhausted and more is needed, it is automatically expanded
+                by the container (reallocating it storage space).
+
+        max_size():
+                Returns the maximum number of elements that the vector can hold.
+
+        operator=:
+                Assigns new contents to the container, replacing its current contents,
+                and modifying its size accordingly.
+
+        operator[]:
+                Returns a reference to the element at position n in the vector container.
+
+        at():
+                Similar to [], but if you go out of bounds it gives an exception error.
+
+        front():
+                Returns a reference to the first element in the vector.
+                Unlike member vector::begin, which returns an iterator to this same element,
+                this function returns a direct reference.
+
+        back():
+                Returns a reference to the last element in the vector.
+                Unlike member vector::end, which returns an iterator just past this element,
+                this function returns a direct reference.
+
+        shrink_to_fit():
+                Requests the container to reduce its capacity to fit its size.
+
+        empty():
+                Returns whether the vector is empty (i.e. whether its size is 0).
+
+        begin():
+                Returns an iterator pointing to the first element in the vector.
+
+        end():
+                Returns an iterator referring to the past-the-end element in the vector container.
+
+        rbegin():
+                Returns a reverse iterator pointing to the last element in the vector
+                (i.e., its reverse beginning).
+
+        rend():
+                Returns a reverse iterator pointing to the theoretical element preceding the
+                first element in the vector (which is considered its reverse end).
+
+        insert():
+                The vector is extended by inserting new elements before the element at the
+                specified position, effectively increasing the container size by the number
+                of elements inserted.
+
+        erase():
+                Removes from the vector either a single element (position) or a range
+                of elements ([first,last)).
+
+        push_back():
+                Adds a new element at the end of the vector, after its current last
+                element. The content of val is copied (or moved) to the new element.
+
+        pop_back():
+                Removes the last element in the vector, effectively reducing the container
+                size by one.
+
+        clear():
+                Removes all elements from the vector (which are destroyed), leaving the
+                container with a size of 0.
+
+
+    https://www.cplusplus.com/reference/vector/vector/
+
+
+
+std:list:
+
+    Lists are sequence containers that allow constant time insert and erase operations
+    anywhere within the sequence, and iteration in both directions.
+
+    Similar to Doubly-Linked List in C, it is bidirectional.
+    std::forward_list is one direction only, it is similar to Linked Lists in C.
+
+
+    List Functions:
+
+        They are all similar to the Vectors functions.
+        In the lists you have to work with iterators to add or change things.
+
+
+        Example:
+
+            void print_list(std::list<int> & nums) {
+                std::list<int>::iterator it;
+
+                std::cout << "{ ";
+
+                for (it = nums.begin(); it != nums.end(); it++)
+                    std::cout << *it << " ";
+                std::cout << "}" << std::endl;
+            }
+
+            std::list<int>::iterator insert_at(std::list<int> & nums, int number) {
+                std::list<int>::iterator it = nums.begin();
+
+                while(*it != number && it != nums.end()) {
+                    it++;
+                }
+
+                return it;
+            }
+
+            int main() {
+                std::list<int> nums = {0, 1, 2, 3};
+                print_list(nums);
+
+                std::list<int>::iterator it = insert_at(nums, 2);
+                nums.insert(it, 10);
+                print_list(nums);
+            }
+
+
+            Output:
+
+                { 0 1 2 3 }
+                { 0 1 10 2 3 }
+
+
+
+Algorithm:
+
+    Algorithm has a purpose for the containers, like Sort, Search, Counting, Manipulating...
+    Algorithm are applied to a range of elements.
+
+        Example:
+
+            #include <iostream>
+            #include <algorithm>
+            #include <vector>
+
+            int main() {
+                std::vector<int> vect = {2, 0, 20, 9, 5, -3};
+                std::vector<int>::iterator it;
+
+                it = std::find(vect.begin(), vect.end(), 20);
+                if (it == vect.end())
+                    std::cout << "NOT FOUND" << std::endl;
+                else
+                    std::cout << "WAS FOUND = " << *it << std::endl;
+
+                it = vect.begin();
+                while (it != vect.end()) {
+                    std::cout << *it << " ";
+                    it++;
+                }
+                std::cout << std::endl;
+
+
+                std::sort(vect.begin(), vect.end());
+
+                it = vect.begin();
+                while (it != vect.end()) {
+                    std::cout << *it << " ";
+                    it++;
+                }
+                std::cout << std::endl;
+
+            }
+
+            Output:
+                WAS FOUND = 20
+                2 0 20 9 5 -3
+                -3 0 2 5 9 20
+
+
+---------------------------------------------------------------------------------------------
 </pre>
