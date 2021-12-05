@@ -12,7 +12,8 @@ You can find the subject of these projects
 [cpp_module_04](https://github.com/Olbrien/42Lisboa-lvl_4_cpp_modules/blob/main/cpp_module_04/extras/lvl_4_cpp_module_04.pdf)\
 [cpp_module_05](https://github.com/Olbrien/42Lisboa-lvl_4_cpp_modules/blob/main/cpp_module_05/extras/lvl_4_cpp_module_05.pdf)\
 [cpp_module_06](https://github.com/Olbrien/42Lisboa-lvl_4_cpp_modules/blob/main/cpp_module_06/extras/lvl_4_cpp_module_06.pdf)\
-[cpp_module_07](https://github.com/Olbrien/42Lisboa-lvl_4_cpp_modules/blob/main/cpp_module_07/extras/lvl_4_cpp_module_07.pdf)
+[cpp_module_07](https://github.com/Olbrien/42Lisboa-lvl_4_cpp_modules/blob/main/cpp_module_07/extras/lvl_4_cpp_module_07.pdf)\
+[cpp_module_08](https://github.com/Olbrien/42Lisboa-lvl_4_cpp_modules/blob/main/cpp_module_08/extras/lvl_4_cpp_module_08.pdf)
 
 In general these projects contain:
 - Namespace, class, member functions, stdio stream, initialization lists, static, const
@@ -23,6 +24,7 @@ In general these projects contain:
 - Nested classes, repetition and exceptions
 - Implicit and explicit conversions, reinterpret cast, static cast, dynamic cast, const cast, upcasting and downcasting
 - Function templates, class templates and template specialization
+- Standard Template Library (STL)
 
 
 ## Research:
