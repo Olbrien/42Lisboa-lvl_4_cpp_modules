@@ -8,11 +8,11 @@ int main() {
 	span s(5);
 
 	try {
-		s.addNumber(1);
-		s.addNumber(2);
-		s.addNumber(3);
-		s.addNumber(4);
 		s.addNumber(5);
+		s.addNumber(3);
+		s.addNumber(17);
+		s.addNumber(9);
+		s.addNumber(11);
 	}
 	catch (std::exception & e) {
 		std::cout << e.what() << std::endl;
