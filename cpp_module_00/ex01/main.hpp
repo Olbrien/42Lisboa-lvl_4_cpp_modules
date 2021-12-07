@@ -6,8 +6,8 @@
 # include <sstream>
 # include <string>
 
-# include "phonebook.class.hpp"
-# include "contact.class.hpp"
+# include "phonebook.hpp"
+# include "contact.hpp"
 
 
   /*************************/
