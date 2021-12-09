@@ -133,14 +133,12 @@ Fixed Fixed::operator-(Fixed const & obj) {
 }
 
 Fixed Fixed::operator*(Fixed const & obj) {
-	Fixed ret;
-	ret.setRawBits(this->getRawBits() * obj.getRawBits() / (1 << _fractBits));
+	Fixed ret = Fixed(this->toFloat() * obj.toFloat());
 	return ret;
 }
 
 Fixed Fixed::operator/(Fixed const & obj) {
-	Fixed ret;
-	ret.setRawBits(this->getRawBits() / obj.getRawBits() * (1 << _fractBits));
+	Fixed ret = Fixed(this->toFloat() / obj.toFloat());
 	return ret;
 }
 
