@@ -31,14 +31,13 @@ In general these projects contain:
 
 
 ## Research:
-
 <code>
+    
 What is C++?
 
     C++ is a cross-platform language that can be used to create high-performance applications.
     C++ is an object-oriented programming language which gives a clear structure to programs
     and allows code to be reused, lowering development costs.
-
 
 What is Object-Oriented Programming (OPP)?
 
