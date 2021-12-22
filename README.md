@@ -32,9 +32,7 @@ In general these projects contain:
 
 ## Research:
 
-<pre>
----------------------------------------------------------------------------------------------
-
+<code>
 What is C++?
 
     C++ is a cross-platform language that can be used to create high-performance applications.
@@ -3171,7 +3169,4 @@ Algorithm:
                 WAS FOUND = 20
                 2 0 20 9 5 -3
                 -3 0 2 5 9 20
-
-
----------------------------------------------------------------------------------------------
-</pre>
+</code>
