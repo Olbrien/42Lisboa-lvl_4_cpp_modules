@@ -32,7 +32,7 @@ In general these projects contain:
 
 ## Research:
 <code>
-    
+
 What is C++?
 
     C++ is a cross-platform language that can be used to create high-performance applications.
@@ -333,7 +333,7 @@ Constructor Outside Class:
 
 Destructor:
 
-    A constructor in C++ is a special method that is automatically called when an object
+    A destructor in C++ is a special method that is automatically called when an object
     of a class is deleted;
 
         #include <iostream>
